@@ -1,0 +1,403 @@
+<!doctype html>
+<html lang="en"> 
+ <head> 
+  <meta charset="UTF-8"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1"> 
+  <title>Understanding Cybercrime – Gemini Cosmic Presentation</title> 
+  <style>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Share+Tech+Mono&display=swap');
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', Arial, sans-serif;
+  color: #e0f4ff;
+  background: radial-gradient(at 70% 20%, #120038 0%, #40009a 80%), linear-gradient(115deg, #182b52 20%, #1a404f 95%);
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+#cosmos-bg {
+  position: fixed;
+  z-index: 0;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  pointer-events: none;
+  background: transparent;
+}
+header {
+  background: linear-gradient(130deg, #39015a 60%, #0057b7 90%);
+  padding: 38px 10vw 26px 10vw;
+  border-radius: 36px;
+  margin: 26px 0 36px 0;
+  box-shadow: 0 0 70px #a5c1ff55, 0 0 80px #9f3fff66;
+  position: relative;
+  z-index: 1;
+  border: 3px solid #39015a;
+}
+header h1 {
+  font-family: 'Orbitron', monospace;
+  color: #fffbe7;
+  font-size: 3em;
+  text-align: center;
+  margin-bottom: 10px;
+  letter-spacing: 0.16em;
+  text-shadow: 0 0 14px #09f, 0 0 36px #9f3fff, 0 0 70px #fff;
+  font-weight: 700;
+  animation: neonPulse 2.8s infinite alternate;
+  user-select: none;
+  background: linear-gradient(90deg,#f0f,#0ff,#0f0,#fff,#ff0055,#f0f 95%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+header .subtitle {
+  text-align: center;
+  font-size: 1.2em;
+  color: #ffd700;
+  font-family: 'Orbitron', monospace;
+  letter-spacing: 1.3px;
+}
+.gemini-stars {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  font-size: 2.1em;
+}
+main {
+  max-width: 920px;
+  margin: 0 auto 64px auto;
+  background: linear-gradient(120deg, #200041 60%, #0e1a2d 98%);
+  padding: 44px 9px 36px 9px;
+  border-radius: 38px;
+  box-shadow: 0 0 48px #a5c1ff77, 0 0 50px #9f3fff99 inset;
+  border: 1.5px solid #120038;
+  position: relative;
+  z-index: 1;
+}
+section {
+  margin-bottom: 44px;
+  opacity: 0;
+  transform: scale(0.97) translateY(55px);
+  transition: all 1.15s cubic-bezier(.23,.99,.48,.94), box-shadow 0.55s;
+  box-shadow: 0 0 22px #fff7, 0 0 34px #00ffe0cc;
+  border-radius: 30px;
+  padding: 18px 14px 9px 24px;
+  background: linear-gradient(115deg, #39015a77 13%, #0ff5 95%);
+  border: 1.5px solid #39015a77;
+  will-change: transform, opacity;
+}
+section.visible {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+  box-shadow: 0 0 44px #1b66bc, 0 0 64px #e370ff77;
+}
+h2 {
+  font-family: 'Orbitron', monospace;
+  font-size: 1.35em;
+  color: #fff;
+  margin-bottom: 14px;
+  letter-spacing: 0.08em;
+  text-shadow: 0 0 12px #fff, 0 0 28px #0ff;
+  border-bottom: 2px dotted #ffd700;
+  padding-bottom: 8px;
+  position: relative;
+}
+h2 .emoji {
+  font-size: 1.2em;
+  filter: drop-shadow(0 0 7px #ffd700);
+  margin-right: 6px;
+  vertical-align: middle;
+}
+ul {
+  list-style: none;
+  padding-left: 0;
+}
+ul li {
+  margin-bottom: 11px;
+  position: relative;
+  padding-left: 25px;
+  font-size: 1.05em;
+  font-family: 'Share Tech Mono', monospace;
+  background: linear-gradient(90deg, #ffd700 5%, #9f3fff 95%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+ul li::before {
+  content: '✨';
+  position: absolute;
+  left: 0;
+  top: 1px;
+  font-size: 1.1em;
+  filter: drop-shadow(0 0 2px #ffd700);
+}
+ul li:hover {
+  text-shadow: 0 0 13px #04f,0 0 17px #09f,0 0 22px #ffd700;
+  background: linear-gradient(90deg, #ff0055 15%, #0ff 75%, #fff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.console-section {
+  background: linear-gradient(90deg, #1a2b22 50%, #0007 100%);
+  color: #00ff77;
+  font-family: 'Share Tech Mono', monospace;
+  padding: 17px 16px;
+  border-radius: 17px;
+  font-size: 1em;
+  margin: 35px 0 45px 0;
+  box-shadow: 0 0 18px #0ff, 0 0 9px #ff0055 inset;
+  position: relative;
+  border: 1.5px solid #ffd70099;
+}
+.console-cursor {
+  width: 11px;
+  height: 24px;
+  background: #ffd700;
+  display: inline-block;
+  animation: blinkCursor 1s infinite;
+  vertical-align: bottom;
+}
+@keyframes blinkCursor {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+.console-output {
+  display: inline;
+  white-space: pre-line;
+}
+.timeline-container { margin: 38px 4vw 38px 4vw; text-align: center; }
+.timeline {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(90deg, #ffd700 0%, #9f3fff 100%);
+  border-radius: 30px;
+  height: 23px;
+  position: relative;
+  box-shadow: 0 0 80px #a5c1ff33, 0 0 60px #9f3fff33 inset;
+}
+.milestone {
+  position: relative;
+  top: -12px;
+  background: #120038dd;
+  border: 2px solid #ffd700;
+  color: #fff;
+  cursor: pointer;
+  font-family: 'Orbitron', monospace;
+  font-weight: bold;
+  font-size: 1em;
+  padding: 7px 14px;
+  border-radius: 1em;
+  box-shadow: 0 0 22px #ffd700, 0 0 8px #9f3fff inset;
+  transition: all 0.19s;
+}
+.milestone:hover {
+  background: #ffd700;
+  color: #39015a;
+  box-shadow: 0 0 40px #a5c1ffff, 0 0 22px #9f3fff inset;
+}
+.timeline-info {
+  margin-top: 18px;
+  color: #ffd700;
+  font-size: 1.12em;
+  font-family: 'Share Tech Mono', monospace;
+  min-height: 24px;
+  text-shadow: 0 0 9px #ffd700,0 0 11px #9f3fff;
+  letter-spacing: 0.04em;
+}
+footer {
+  text-align: center;
+  padding: 23px;
+  background: linear-gradient(90deg,#1a2d4f 60%, #37004a 100%);
+  color: #ffd700;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 1.18em;
+  letter-spacing: 2px;
+  margin-bottom: 0;
+  border-radius: 0 0 29px 29px;
+  z-index: 1;
+  position: relative;
+  border-top: 2px solid #ffd70077;
+  box-shadow: 0 0 18px #ffd700,0 0 11px #9f3fff;
+}
+
+@keyframes neonPulse {
+  0%,100% { color: #fff; text-shadow: 0 0 14px #09f,0 0 44px #ffd700; }
+  50% { color: #ffd700; text-shadow: 0 0 44px #fff,0 0 44px #f0f,0 0 54px #9f3fff;}
+}
+
+/* Add responsive design */
+@media(max-width: 760px) {
+  main {padding: 17px 2px;}
+  header {padding: 22px 1vw 18px 1vw; margin:18px 0 10px 0;}
+  section {margin-bottom: 30px; padding:13px 4px;}
+  h1 {font-size:1.7em;}
+}
+</style> 
+ </head> 
+ <body> 
+  <div id="cosmos-bg"></div> 
+  <header> 
+   <h1>Understanding Cybercrime <span class="gemini-stars">.👾.</span></h1> 
+   <div class="subtitle">
+     A cosmic journey through the digital universe 
+   </div> 
+  </header> 
+  <div class="timeline-container"> 
+   <div class="timeline"> 
+    <div class="milestone" data-info="1980s: First viruses, hacking groups 🚀">
+      1980s 
+    </div> 
+    <div class="milestone" data-info="1990s: Rise of worms, cyber banking 💳">
+      1990s 
+    </div> 
+    <div class="milestone" data-info="2000s: Big breaches &amp; global attacks 🌎">
+      2000s 
+    </div> 
+    <div class="milestone" data-info="2010s: Ransomware, hacktivism 🔐">
+      2010s 
+    </div> 
+    <div class="milestone" data-info="2020s: AI, deepfakes, quantum cyber 💫">
+      2020s 
+    </div> 
+   </div> 
+   <div id="milestone-info" class="timeline-info"></div> 
+  </div> 
+  <main> 
+   <div class="console-section"> <span class="console-cursor"></span> <span class="console-output" id="cyber-console-output"></span> 
+   </div> 
+   <section> 
+    <h2><span class="emoji">👾</span> What is Cybercrime?</h2> 
+    <ul> 
+     <li>Criminal acts in digital space, computers &amp; networks</li> 
+     <li>Targets people, organizations, governments 🌍</li> 
+     <li>Includes hacking, data theft, cyberbullying, fraud</li> 
+     <li>Governed by digital laws, e.g., Computer Fraud Act</li> 
+    </ul> 
+   </section> 
+   <section> 
+    <h2><span class="emoji">🤖</span> Types of Cybercrime</h2> 
+    <ul> 
+     <li>Phishing: Impersonation for info steal ✉️</li> 
+     <li>Unauthorized access &amp; hacking 🔓</li> 
+     <li>Identity theft: Using stolen info 🤡</li> 
+     <li>Ransomware: Data hostage for money 💸</li> 
+     <li>Cyberbullying and harassment 👽</li> 
+     <li>Botnets and DDoS: Network attacks 🔥</li> 
+     <li>Spyware &amp; Surveillance 🦾</li> 
+    </ul> 
+   </section> 
+   <section> 
+    <h2><span class="emoji">💫</span> Impact</h2> 
+    <ul> 
+     <li>Economic losses for individuals &amp; businesses 💰</li> 
+     <li>Reputation damage &amp; trust loss 😔</li> 
+     <li>Legal penalties 🚨</li> 
+     <li>Emotional distress &amp; trauma 😱</li> 
+     <li>National security risks 🛰️</li> 
+    </ul> 
+   </section> 
+   <section> 
+    <h2><span class="emoji">🦾</span> Prevention &amp; Protection</h2> 
+    <ul> 
+     <li>Strong passwords &amp; 2FA 🔐</li> 
+     <li>Regular backups &amp; updates 🗄️</li> 
+     <li>Security education &amp; awareness 🧠</li> 
+     <li>Incident response plans 🦸‍♂️</li> 
+     <li>Advanced cyber defense 🔰</li> 
+    </ul> 
+   </section> 
+   <section> 
+    <h2><span class="emoji">🌌</span> Cosmic Cyber Future</h2> 
+    <ul> 
+     <li>AI-powered attacks 🤖</li> 
+     <li>Quantum computing: new threats 🚀</li> 
+     <li>Global cooperation &amp; laws 🌐</li> 
+     <li>Innovation in cybersecurity tools 💡</li> 
+     <li>Greater digital awareness 💫</li> 
+    </ul> 
+   </section> 
+  </main> 
+  <footer>
+    © 2025 Cosmic Cybercrime Presentation 
+  </footer> <!-- Cosmic Sparkle Background JS --> 
+  <script>
+function cosmicSparkle() {
+  const canvas = document.createElement('canvas');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  canvas.id = 'cosmic-canvas';
+  document.getElementById('cosmos-bg').innerHTML = '';
+  document.getElementById('cosmos-bg').appendChild(canvas);
+  const ctx = canvas.getContext('2d');
+  function randomColor() {
+    const colors = ["#ffd700","#fff","#9f3fff","#06f","#0ff","#f0f"];
+    return colors[Math.floor(Math.random()*colors.length)];
+  }
+  function drawSparkle() {
+    for(let i=0;i<75;i++) {
+      let x = Math.random()*canvas.width;
+      let y = Math.random()*canvas.height;
+      let r = Math.random()*1.6+0.5;
+      ctx.beginPath();
+      ctx.arc(x,y,r,0,Math.PI*2);
+      ctx.fillStyle = randomColor();
+      ctx.shadowColor = ctx.fillStyle;
+      ctx.shadowBlur = 14;
+      ctx.globalAlpha = 0.89;
+      ctx.fill();
+      ctx.globalAlpha = 1;
+      ctx.shadowBlur = 0;
+    }
+  }
+  setInterval(function() {
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    drawSparkle();
+  },900);
+}
+window.onload = cosmicSparkle;
+window.onresize = cosmicSparkle;
+</script> <!-- Timeline Interactive Info --> 
+  <script>
+document.querySelectorAll('.milestone').forEach(el => {
+  el.addEventListener('mouseenter', function() {
+    document.getElementById('milestone-info').textContent = el.getAttribute('data-info');
+  });
+  el.addEventListener('mouseleave', function() {
+    document.getElementById('milestone-info').textContent = "";
+  });
+});
+</script> 
+  <script>
+function fadeInOnScroll() {
+  const sections = document.querySelectorAll('main section');
+  const triggerBottom = window.innerHeight * 0.85;
+  sections.forEach(section => {
+    const top = section.getBoundingClientRect().top;
+    if (top < triggerBottom) { section.classList.add('visible'); }
+  });
+}
+window.addEventListener('scroll', fadeInOnScroll);
+window.addEventListener('load', fadeInOnScroll);
+</script> 
+  <script>
+const consoleMessage =
+`>>> Cosmic Shield Booting...
+Connecting to Neural Galaxy AI...
+🚦 Alert: Quantum phishing attempt detected!
+🛡️ Defense: Initiate deep crypto shield!
+🌌 All systems secure.
+💡 Tip: "Stay star-bright, password-tight!"`;
+let j = 0;
+function typeWriter() {
+  if (j < consoleMessage.length) {
+    document.getElementById("cyber-console-output").textContent += consoleMessage.charAt(j);
+    j++; setTimeout(typeWriter, 37);
+  }
+}
+typeWriter();
+</script> 
+ </body>
+</html>
